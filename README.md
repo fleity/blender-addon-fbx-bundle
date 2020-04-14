@@ -24,7 +24,7 @@ You can find documentation and the previous releases on the official website
 
 **Download**
 
-* [FBX_Bundle_1.5.2.zip](https://github.com/fleity/blender-addon-fbx-bundle/blob/master/addons/FBX_Bundle_1.5.2.zip)
+* [FBX_Bundle_1.5.2.zip](https://github.com/fleity/blender-addon-fbx-bundle/releases/download/1.5.2/FBX_Bundle_1.5.2.zip)
 
 
 ## FBX Bundle 1.5.1 ##
