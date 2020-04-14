@@ -15,6 +15,17 @@ You can find documentation and the previous releases on the official website
 
 
 # Release Log #
+## FBX Bundle 1.5.2 ##
+
+**WARNING**
+
+* Fix 2.8 annotation vs property warnings
+* Keep hierarchy when exporting fbx
+
+**Download**
+
+* [FBX_Bundle_1.5.2.zip](https://github.com/fleity/blender-addon-fbx-bundle/blob/master/addons/FBX_Bundle_1.5.2.zip)
+
 
 ## FBX Bundle 1.5.1 ##
 
