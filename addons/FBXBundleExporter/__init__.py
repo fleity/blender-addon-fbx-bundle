@@ -57,9 +57,9 @@ import traceback
 bl_info = {
 	"name": "FBX Bundle",
 	"description": "Export object selections in FBX bundles",
-	"author": "renderhjs",
+	"author": "renderhjs (> TiliSleepStealer > fleity)",
 	"blender": (2, 80, 0),
-	"version": (1, 5, 1),
+	"version": (1, 5, 1, 3),
 	"category": "3D View",
 	"location": "View3D",
 	"warning": "",
@@ -137,7 +137,7 @@ class FBXBundleSettings(bpy.types.PropertyGroup):
 		[('NAME', 'Name', "Bundle by matching object names"), 
 		('PARENT', 'Parent', "Bundle by the parent object"), 
 		# ('SPACE', 'Space', "Bundle by shared space"), 
-		('GROUP', 'Group', "Bundle by 'Groups'"),
+		('GROUP', 'Collection', "Bundle by 'Collections'"),
 		('MATERIAL', 'Material', "Bundle by matching material names"),
 		('SCENE', 'Scene', "Bundle by current scene")
 		], name = "Bundle Mode", default = 'NAME'
@@ -166,7 +166,7 @@ class FBXBundleSettings(bpy.types.PropertyGroup):
 
 
 class Panel_Core(bpy.types.Panel):
-	bl_idname = "FBX_bundle_panel_core"
+	bl_idname = "FBX_BUNDLE_PT_panel_core"
 	bl_label = " "
 	bl_space_type = 'VIEW_3D'
 	bl_region_type = 'UI'
@@ -237,7 +237,7 @@ class Panel_Core(bpy.types.Panel):
 			box = col.box()
 			box.label(text="Platform not implemented", icon='CANCEL')
 		
-		elif context.scene.FBXBundleSettings.mode_bundle == 'GROUP' and len(bpy.data.groups) == 0:
+		elif context.scene.FBXBundleSettings.mode_bundle == 'GROUP' and len(bpy.data.collections) == 0:
 			box = col.box()
 			box.label(text="No groups available", icon='CANCEL')
 
@@ -250,7 +250,7 @@ class Panel_Core(bpy.types.Panel):
 
 
 class Panel_Tools(bpy.types.Panel):
-	bl_idname = "FBX_bundle_panel_tools"
+	bl_idname = "FBX_BUNDLE_PT_panel_tools"
 	bl_label = "Tools"
 	bl_space_type = 'VIEW_3D'
 	bl_region_type = 'UI'
@@ -297,7 +297,7 @@ class Panel_Tools(bpy.types.Panel):
 
 
 class Panel_Modifiers(bpy.types.Panel):
-	bl_idname = "FBX_bundle_panel_modifiers"
+	bl_idname = "FBX_BUNDLE_PT_panel_modifiers"
 	bl_label = "Modifiers"
 	bl_space_type = 'VIEW_3D'
 	bl_region_type = 'UI'
@@ -326,7 +326,7 @@ class Panel_Modifiers(bpy.types.Panel):
 
 
 class Panel_Files(bpy.types.Panel):
-	bl_idname = "FBX_bundle_panel_files"
+	bl_idname = "FBX_BUNDLE_PT_panel_files"
 	bl_label = "Bundles"
 	bl_space_type = 'VIEW_3D'
 	bl_region_type = 'UI'

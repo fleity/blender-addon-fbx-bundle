@@ -11,22 +11,22 @@ from . import modifier
 imp.reload(modifier) 
 
 class Settings(modifier.Settings):
-	active = bpy.props.BoolProperty (
+	active: bpy.props.BoolProperty (
 		name="Active",
 		default=False
 	)
-	merge_verts = bpy.props.BoolProperty (
+	merge_verts: bpy.props.BoolProperty (
 		name="Merge",
 		description="Split meshes by material after merging.",
 		default=False
 	)
-	merge_by_material = bpy.props.BoolProperty (
+	merge_by_material: bpy.props.BoolProperty (
 		name="By Material",
 		description="Split meshes by material after merging.",
 		default=False
 	)
 
-	merge_distance = bpy.props.FloatProperty (
+	merge_distance: bpy.props.FloatProperty (
 		name="Dist.",
 		default=0,
 		min = 0,

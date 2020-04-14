@@ -18,7 +18,7 @@ class op(bpy.types.Operator):
 	bl_description = "Apply this modifier now"
 	bl_options = {'REGISTER', 'UNDO'}
 
-	modifier_index = bpy.props.IntProperty (
+	modifier_index: bpy.props.IntProperty (
 		default=0
 	)
 

@@ -12,7 +12,7 @@ class op(bpy.types.Operator):
 	bl_label = "Copy Unity Script"
 	bl_description = "Copy Unity editor script to folder"
 
-	filepath = bpy.props.StringProperty(subtype="FILE_PATH")
+	filepath: bpy.props.StringProperty(subtype="FILE_PATH")
 
 
 	def invoke(self, context, event):
