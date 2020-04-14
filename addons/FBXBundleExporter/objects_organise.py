@@ -18,7 +18,7 @@ def is_object_valid(obj):
 	if obj.hide_viewport:
 		return False
 		
-	return obj.type == 'MESH' or obj.type == 'FONT' or obj.type == 'CURVE'
+	return obj.type == 'MESH' or obj.type == 'FONT' or obj.type == 'CURVE' or obj.type == 'EMPTY'
 
 
 def get_objects():
@@ -63,14 +63,14 @@ def get_objects():
 
 			# Collect groups from input selection
 			for obj in objects:
-				for group in obj.users_group:
+				for group in obj.users_collection:
 					if group.name not in groups:
 						groups.append(group.name)
 
 			# Collect objects of groups
 			for name in groups:
-				if name in bpy.data.groups:
-					for obj in bpy.data.groups[name].objects:
+				if name in bpy.data.collections:
+					for obj in bpy.data.collections[name].objects:
 						if obj not in objects:
 							objects.append(obj)
 
@@ -364,8 +364,8 @@ def get_key(obj):
 
 	elif mode_bundle == 'GROUP':
 		# Use group name
-		if len(obj.users_group) >= 1:
-			return obj.users_group[0].name
+		if len(obj.users_collection) >= 1:
+			return obj.users_collection[0].name
 
 	elif mode_bundle == 'MATERIAL':
 		# Use material name

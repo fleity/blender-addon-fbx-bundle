@@ -14,7 +14,7 @@ class Platform(platform.Platform):
 
 
 	def is_valid(self):
-		if bpy.context.scene.unit_settings.system != 'METRIC':
+		if (bpy.context.scene.unit_settings.system != 'METRIC' and bpy.context.scene.unit_settings.system != 'NONE'):
 			return False, "Scene units not metric"
 
 		elif bpy.context.scene.unit_settings.scale_length != 1.00:
@@ -42,5 +42,5 @@ class Platform(platform.Platform):
 			batch_mode='OFF', 
 			use_custom_props=False,
 
- 			bake_space_transform = True
+ 			bake_space_transform = False
 		)

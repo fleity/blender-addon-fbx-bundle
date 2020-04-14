@@ -88,10 +88,6 @@ def export(self, target_platform):
 	bpy.ops.object.mode_set(mode='OBJECT')
 	bundles = objects_organise.get_bundles()
 
-	
-
-
-
 	bpy.context.scene.unit_settings.system = 'METRIC'	
 	bpy.context.tool_settings.transform_pivot_point = 'MEDIAN_POINT'
 
@@ -103,7 +99,13 @@ def export(self, target_platform):
 		# Detect if animation export...
 		use_animation = objects_organise.get_objects_animation(objects)
 
-
+		parent_dict = {}
+		for obj in objects:
+			if (obj.parent is not None):
+				parent_dict[obj.name] = obj.parent.name
+			else:
+				parent_dict[obj.name] = None
+				
 		copies = []
 		for obj in objects:
 			name_original = obj.name
@@ -119,15 +121,53 @@ def export(self, target_platform):
 			bpy.ops.object.convert(target='MESH')
 			bpy.context.object.name = name_original
 			copies.append(bpy.context.object)
-			
-			bpy.context.object.location-= pivot
+			# bpy.context.object.location-= pivot
 
+		# Parent hierarchy
+		for copy_name, parent_name in parent_dict.items():
+			if (parent_dict[copy_name] != None):
+				if (copy_name != parent_name):
+					bpy.ops.object.select_all(action="DESELECT")
+					child_object = bpy.data.objects[copy_name]
+					parent_object = bpy.data.objects[parent_name]
+					child_object.select_set(True)
+					parent_object.select_set(True)
+					bpy.context.view_layer.objects.active = parent_object
+					bpy.ops.object.parent_set(type='OBJECT', keep_transform=True)
+
+		# apply rotation and scale
+		# find roots
+		roots = []
+		
+		for obj in copies:
+			root = obj
+			for i in range(1000):
+				if root.parent:
+					root = root.parent
+				else:
+					if (root not in roots):
+						roots.append(root)
+
+		for copy in copies:
+			bpy.ops.object.select_all(action="DESELECT")
+			copy.select_set(True)			
+			bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
+
+		# unity rx -90, apply, rx 90 to get clean transforms
+		if bpy.context.scene.FBXBundleSettings.target_platform == 'UNITY':
+			bpy.ops.object.select_all(action="DESELECT")
+			for root in roots: 
+				root.select_set(True)
+				root.rotation_euler[0] = -1.5708
+			for copy in copies: copy.select_set(True)		
+			bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
+			for root in roots: root.rotation_euler[0] = 1.5708
 
 		bpy.ops.object.select_all(action="DESELECT")
 		for obj in copies:
 			obj.select_set(state = True)
 		bpy.context.view_layer.objects.active = copies[0]
-
+		
 
 		# Apply modifiers
 
@@ -175,6 +215,9 @@ def export(self, target_platform):
 	bpy.ops.object.select_all(action='DESELECT')
 	for obj in previous_selection:
 		obj.select_set(state = True)
+
+	if bpy.context.scene.FBXBundleSettings.mode_bundle == 'MATERIAL':
+		bpy.ops.ed.undo()
 
 	# Show popup
 	

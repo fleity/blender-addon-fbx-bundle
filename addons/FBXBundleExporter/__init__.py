@@ -59,7 +59,7 @@ bl_info = {
 	"description": "Export object selections in FBX bundles",
 	"author": "renderhjs (> TiliSleepStealer > fleity)",
 	"blender": (2, 80, 0),
-	"version": (1, 5, 1, 3),
+	"version": (1, 5, 2),
 	"category": "3D View",
 	"location": "View3D",
 	"warning": "",
